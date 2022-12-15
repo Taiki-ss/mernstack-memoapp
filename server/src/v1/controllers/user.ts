@@ -1,10 +1,11 @@
+import { Response, Request } from "express";
 const CryptoJs = require('crypto-js');
 const JWT = require('jsonwebtoken');
 
 const User = require('../models/user');
 
 // ユーザー新規登録用API
-exports.register = async (req, res) => {
+exports.register = async (req: Request, res: Response) => {
   const password = req.body.password;
 
   try {
@@ -23,7 +24,7 @@ exports.register = async (req, res) => {
 };
 
 // ユーザーログイン用API
-exports.login = async (req, res) => {
+exports.login = async (req: Request, res: Response) => {
   const { username, password } = req.body;
 
   try {
