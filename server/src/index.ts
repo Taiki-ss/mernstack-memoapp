@@ -1,7 +1,9 @@
-require('./v1/db/connect');
-const express = require('express');
+import dbConnect from './v1/db/connect';
+import express from 'express';
 const app = express();
 const PORT = 3000;
+
+dbConnect();
 
 app.use(express.json());
 app.use('/api/v1', require('./v1/routes/auth'));
