@@ -1,7 +1,7 @@
 import dbConnect from './v1/db/connect';
 import express from 'express';
 const app = express();
-const PORT = 3000;
+const PORT = 3100;
 
 dbConnect();
 

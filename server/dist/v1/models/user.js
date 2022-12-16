@@ -15,5 +15,4 @@ var userSchema = new mongoose_1.default.Schema({
         required: true,
     },
 });
-// module.exports = mongoose.model('User', userSchema);
 exports.default = mongoose_1.default.model('User', userSchema);
