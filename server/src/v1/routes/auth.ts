@@ -1,9 +1,10 @@
-import Express from 'express';
+import Express, { Request, Response } from 'express';
 import { body } from 'express-validator';
 import dotenv from 'dotenv';
 import User from '../models/user';
 import validation from '../middleware/validation';
 import userController from '../controllers/user';
+import tokenHandler from '../middleware/tokenHandler';
 
 dotenv.config();
 
@@ -42,6 +43,15 @@ router.post(
     .withMessage('パスワードは8文字以上である必要があります。'),
   validation,
   userController.login
+);
+
+// JWT認証API
+router.post(
+  '/verify-token',
+  tokenHandler.verifyToken,
+  (req: Request, res: Response) => {
+    return res.status(200).json({ user: req.user });
+  }
 );
 
 module.exports = router;
