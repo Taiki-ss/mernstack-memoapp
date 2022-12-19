@@ -11,7 +11,7 @@ const axiosClient = axios.create({
 axiosClient.interceptors.request.use(
   async (config) => {
     return {
-      config,
+      ...config,
       headers: {
         "Content-Type": "application/json",
         authorization: `Bearer ${getToken()}`, //リクエストヘッダにJWTをつけてサーバーに渡す
@@ -22,3 +22,5 @@ axiosClient.interceptors.request.use(
     return Promise.reject(error);
   }
 );
+
+export default axiosClient;
