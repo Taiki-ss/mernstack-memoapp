@@ -9,6 +9,7 @@ const Register = () => {
   const [usernameErrText, setUsernameErrText] = useState("");
   const [passwordErrText, setPasswordErrText] = useState("");
   const [confirmPasswordErrText, setConfirmPasswordErrText] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -43,6 +44,7 @@ const Register = () => {
     }
 
     if (isError) return;
+    setLoading(true);
 
     // 新規登録APIを叩く
     try {
@@ -73,6 +75,8 @@ const Register = () => {
         });
       }
     }
+
+    setLoading(false);
   };
 
   return (
@@ -87,6 +91,7 @@ const Register = () => {
           required
           helperText={usernameErrText}
           error={usernameErrText !== ""}
+          disabled={loading}
         />
         <TextField
           fullWidth
@@ -98,6 +103,7 @@ const Register = () => {
           required
           helperText={passwordErrText}
           error={passwordErrText !== ""}
+          disabled={loading}
         />
         <TextField
           fullWidth
@@ -109,6 +115,7 @@ const Register = () => {
           required
           helperText={confirmPasswordErrText}
           error={confirmPasswordErrText !== ""}
+          disabled={loading}
         />
         <LoadingButton
           sx={{
@@ -117,7 +124,7 @@ const Register = () => {
           }}
           fullWidth
           type="submit"
-          loading={false}
+          loading={loading}
           color="primary"
           variant="outlined"
         >
