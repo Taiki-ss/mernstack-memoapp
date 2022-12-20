@@ -8,7 +8,6 @@ const Register = () => {
   const [usernameErrText, setUsernameErrText] = useState("");
   const [passwordErrText, setPasswordErrText] = useState("");
   const [confirmPasswordErrText, setConfirmPasswordErrText] = useState("");
-  const [isError, setIsError] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -23,28 +22,26 @@ const Register = () => {
     const password = (data.get("password") as string).trim();
     const confirmpassword = (data.get("confirmpassword") as string).trim();
 
-    setIsError(false);
+    let isError = false;
 
     if (username === "") {
       setUsernameErrText("名前を入力してください");
-      setIsError(true);
+      isError = true;
     }
     if (password === "") {
       setPasswordErrText("パスワードを入力してください");
-      setIsError(true);
+      isError = true;
     }
     if (confirmpassword === "") {
       setConfirmPasswordErrText("確認用パスワードを入力してください");
-      setIsError(true);
+      isError = true;
     }
     if (password !== confirmpassword) {
       setConfirmPasswordErrText("パスワードと確認用パスワードが異なります");
-      setIsError(true);
+      isError = true;
     }
 
-    if (isError) {
-      return false;
-    }
+    if (isError) return;
 
     // 新規登録APIを叩く
     try {
