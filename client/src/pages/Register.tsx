@@ -3,6 +3,7 @@ import { Box, TextField, Button } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import { Link } from "react-router-dom";
 import authApi from "../api/authApi";
+import { isAxiosError } from "axios";
 
 const Register = () => {
   const [usernameErrText, setUsernameErrText] = useState("");
@@ -56,7 +57,21 @@ const Register = () => {
       }
       console.log("新規登録に成功しました");
     } catch (error) {
-      console.log(error);
+      if (isAxiosError(error) && error.response && error.response.data) {
+        const errors: [{ msg: string; param: string }] =
+          error.response.data.errors;
+        errors.forEach((err: { msg: string; param: string }) => {
+          if (err.param === "username") {
+            setUsernameErrText(err.msg);
+          }
+          if (err.param === "password") {
+            setPasswordErrText(err.msg);
+          }
+          if (err.param === "confirmpassword") {
+            setConfirmPasswordErrText(err.msg);
+          }
+        });
+      }
     }
   };
 
