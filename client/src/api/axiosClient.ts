@@ -23,4 +23,13 @@ axiosClient.interceptors.request.use(
   }
 );
 
+axiosClient.interceptors.response.use(
+  (response) => {
+    return response.data;
+  },
+  (error) => {
+	  throw error;
+  }
+);
+
 export default axiosClient;

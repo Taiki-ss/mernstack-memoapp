@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Box, TextField, Button } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import authApi from "../api/authApi";
 import { isAxiosError } from "axios";
 
@@ -10,6 +10,8 @@ const Register = () => {
   const [passwordErrText, setPasswordErrText] = useState("");
   const [confirmPasswordErrText, setConfirmPasswordErrText] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -58,7 +60,9 @@ const Register = () => {
         localStorage.setItem("token", res.token as string);
       }
       console.log("新規登録に成功しました");
+      navigate("/");
     } catch (error) {
+      console.log(error);
       if (isAxiosError(error) && error.response && error.response.data) {
         const errors: [{ msg: string; param: string }] =
           error.response.data.errors;
