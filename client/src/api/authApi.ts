@@ -3,11 +3,12 @@ import axiosClient from "./axiosClient";
 type User = {
   username: string;
   password: string;
-  confirmpassword: string;
+  confirmpassword?: string;
 };
 
 const authApi = {
   register: (params: User) => axiosClient.post("auth/register", params),
+  login: (params: User) => axiosClient.post("auth/login", params),
 };
 
 export default authApi;
