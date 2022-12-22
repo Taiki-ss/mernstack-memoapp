@@ -59,7 +59,8 @@ const Register = () => {
       if ("token" in res) {
         localStorage.setItem("token", res.token as string);
       }
-      console.log("新規登録に成功しました");
+		console.log("新規登録に成功しました");
+		setLoading(false);
       navigate("/");
     } catch (error) {
       console.log(error);
@@ -77,10 +78,9 @@ const Register = () => {
             setConfirmPasswordErrText(err.msg);
           }
         });
-      }
+	  }
+	  setLoading(false);
     }
-
-    setLoading(false);
   };
 
   return (
