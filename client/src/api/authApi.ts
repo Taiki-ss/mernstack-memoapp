@@ -9,6 +9,7 @@ type User = {
 const authApi = {
   register: (params: User) => axiosClient.post("auth/register", params),
   login: (params: User) => axiosClient.post("auth/login", params),
+  verifyToken: () => axiosClient.post("auth/verify-token"),
 };
 
 export default authApi;

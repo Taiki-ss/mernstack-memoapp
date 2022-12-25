@@ -1,10 +1,24 @@
 // カスタム型を定義
-import React from "react";
-import { Outlet } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
 import { Container, Box } from "@mui/material";
 import notionLogo from "../../assets/images/notion-logo.png";
+import authUtils from "../../utils/authUtils";
 
 const AuthLayout = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    // JWTを持っているのか確認する
+    const checkJWT = async () => {
+      // 認証チェック
+      const isAuth = await authUtils.isAuthenticated();
+      if (isAuth) {
+        navigate("/");
+      }
+    };
+    checkJWT();
+  }, [navigate]);
+
   return (
     <>
       <Container maxWidth="xs">
