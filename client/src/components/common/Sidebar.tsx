@@ -9,8 +9,16 @@ import {
 import { Box } from "@mui/system";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
+import assets from "../../assets";
+import { useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
+  const navigate = useNavigate();
+  const logout = () => {
+    console.log("logout");
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
   return (
     <Drawer
       container={window.document.body}
@@ -18,7 +26,13 @@ const Sidebar = () => {
       open={true}
       sx={{ width: 250, height: "100vh" }}
     >
-      <List sx={{ width: 250, height: "100vh" }}>
+      <List
+        sx={{
+          width: 250,
+          height: "100vh",
+          backgroundColor: assets.colors.secondary,
+        }}
+      >
         <ListItemButton>
           <Box
             sx={{
@@ -31,7 +45,7 @@ const Sidebar = () => {
             <Typography variant="body2" fontWeight="700">
               taiki
             </Typography>
-            <IconButton>
+            <IconButton onClick={logout}>
               <LogoutOutlinedIcon />
             </IconButton>
           </Box>
