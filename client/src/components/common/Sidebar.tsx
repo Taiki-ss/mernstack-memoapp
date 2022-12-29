@@ -11,9 +11,12 @@ import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
 import assets from "../../assets";
 import { useNavigate } from "react-router-dom";
+import { useAppSelector } from "../../redux/hooks";
 
 const Sidebar = () => {
   const navigate = useNavigate();
+  const user = useAppSelector((state) => state.user.value);
+
   const logout = () => {
     console.log("logout");
     localStorage.removeItem("token");
@@ -43,7 +46,7 @@ const Sidebar = () => {
             }}
           >
             <Typography variant="body2" fontWeight="700">
-              taiki
+              {user.username}
             </Typography>
             <IconButton onClick={logout}>
               <LogoutOutlinedIcon />
