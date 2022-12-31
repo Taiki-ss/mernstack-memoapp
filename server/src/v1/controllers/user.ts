@@ -33,10 +33,12 @@ const login = async (req: Request, res: Response) => {
     // DBからユーザーが存在するか探す
     if (!user) {
       return res.status(401).json({
-        errors: [{
-          param: 'username',
-          msg: 'ユーザー名が無効です',
-        }],
+        errors: [
+          {
+            param: 'username',
+            msg: 'ユーザー名が無効です',
+          },
+        ],
       });
     }
 
@@ -47,10 +49,12 @@ const login = async (req: Request, res: Response) => {
 
     if (password !== decryptedPassword) {
       return res.status(401).json({
-        errors: [{
-          param: 'password',
-          msg: 'パスワードが無効です',
-        }],
+        errors: [
+          {
+            param: 'password',
+            msg: 'パスワードが無効です',
+          },
+        ],
       });
     }
 

@@ -25,7 +25,7 @@ const AppLayout = () => {
       }
     };
     checkJWT();
-  }, [navigate]);
+  }, [navigate,dispatch]);
 
   return (
     <>

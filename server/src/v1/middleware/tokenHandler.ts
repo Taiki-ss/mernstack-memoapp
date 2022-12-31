@@ -20,7 +20,7 @@ const tokenDecode = (req: Request) => {
   }
 };
 
-const verifyToken = async (req: Request, res: Response, next: NextFunction) => {
+const verifyToken = async (req: any, res: Response, next: NextFunction) => {
   const tokenDecoded = tokenDecode(req) as JwtPayload;
   if (tokenDecoded) {
     // そのJWTと一致するユーザーを探してくる

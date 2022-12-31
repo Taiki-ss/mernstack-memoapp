@@ -10,7 +10,7 @@ import { Box } from "@mui/system";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
 import assets from "../../assets";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../redux/hooks";
 
 const Sidebar = () => {
@@ -85,6 +85,27 @@ const Sidebar = () => {
               <AddBoxOutlinedIcon />
             </IconButton>
           </Box>
+        </ListItemButton>
+        <ListItemButton
+          sx={{ pl: "20px" }}
+          component={Link}
+          to="/memo/578430758302"
+        >
+          <Typography>📝仮おきのメモ</Typography>
+        </ListItemButton>
+        <ListItemButton
+          sx={{ pl: "20px" }}
+          component={Link}
+          to="/memo/578430758302"
+        >
+          <Typography>📝仮おきのメモ</Typography>
+        </ListItemButton>
+        <ListItemButton
+          sx={{ pl: "20px" }}
+          component={Link}
+          to="/memo/578430758302"
+        >
+          <Typography>📝仮おきのメモ</Typography>
         </ListItemButton>
       </List>
     </Drawer>
