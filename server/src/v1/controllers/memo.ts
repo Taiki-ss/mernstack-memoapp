@@ -15,4 +15,13 @@ const create = async (req: any, res: Response) => {
   }
 };
 
-export { create };
+const getAll = async (req: any, res: Response) => {
+  try {
+    const memos = await Memo.find({ user: req.user._id }).sort('-position');
+    res.status(201).json(memos);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
+export { create, getAll };
