@@ -53,8 +53,8 @@ const Memo = () => {
       </Box>
       <Box sx={{ padding: "10px 50px" }}>
         <TextField
-				  placeholder="無題"
-				  value={`${icon} ${title}`}
+          placeholder="無題"
+          value={title}
           variant="outlined"
           fullWidth
           sx={{
@@ -65,7 +65,7 @@ const Memo = () => {
         />
         <TextField
           placeholder="ここに自由に入力してください。"
-		  value={description}
+          value={description}
           variant="outlined"
           fullWidth
           sx={{
