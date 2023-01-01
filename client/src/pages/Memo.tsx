@@ -20,7 +20,6 @@ const Memo = () => {
       try {
         if (memoId) {
           const memo: any = await memoApi.getOne(memoId);
-          console.log(memo.title);
           setTitle(memo.title);
           setDescription(memo.description);
           setFavorit(memo.favorit);
@@ -29,11 +28,27 @@ const Memo = () => {
           setPositon(memo.positon);
         }
       } catch (error) {
-        // alert(error);
-        console.log(error);
+        alert(error);
       }
     })();
   }, [memoId]);
+
+  let timer: ReturnType<typeof setTimeout>;
+  const timeout = 500;
+
+  const titleUpdate = (e: React.ChangeEvent<HTMLInputElement>) => {
+    clearTimeout(timer);
+    const newTitle = e.target.value;
+    setTitle(newTitle);
+
+    timer = setTimeout(async () => {
+      try {
+        await memoApi.update(memoId!, { title: newTitle });
+      } catch (error) {
+        alert(error);
+      }
+    }, timeout);
+  };
 
   return (
     <>
@@ -53,6 +68,7 @@ const Memo = () => {
       </Box>
       <Box sx={{ padding: "10px 50px" }}>
         <TextField
+          onChange={titleUpdate}
           placeholder="無題"
           value={title}
           variant="outlined"
