@@ -36,7 +36,7 @@ const Sidebar = () => {
         const memos = await memoApi.getAll();
         dispatch(setMemos(memos));
       } catch (error) {
-        alert(error);
+        console.log(error);
       }
     })();
   }, [dispatch, navigate]);
