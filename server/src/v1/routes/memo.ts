@@ -16,4 +16,6 @@ router.get('/:memoId', tokenHandler.verifyToken, MemoController.getOne);
 
 router.put('/:memoId', tokenHandler.verifyToken, MemoController.update);
 
+router.delete('/:memoId', tokenHandler.verifyToken, MemoController.delete);
+
 module.exports = router;

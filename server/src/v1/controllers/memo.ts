@@ -59,6 +59,23 @@ const MemoController = {
       return res.status(500).json(error);
     }
   },
+  delete: async (req: any, res: Response) => {
+    const { memoId } = req.params;
+
+    try {
+      const memo = await Memo.findOneAndDelete({
+        user: req.user._id,
+        _id: memoId,
+      });
+      if (memo) {
+        return res.status(201).json('メモを削除しました');
+      } else {
+        return res.status(404).json('メモが存在しません');
+      }
+    } catch (error) {
+      return res.status(500).json(error);
+    }
+  },
 };
 
 export default MemoController;

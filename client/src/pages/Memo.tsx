@@ -3,10 +3,11 @@ import { Box } from "@mui/system";
 import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import memoApi from "../api/memoApi";
 
 const Memo = () => {
+  const navigate = useNavigate();
   const { memoId } = useParams();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -50,6 +51,30 @@ const Memo = () => {
     }, timeout);
   };
 
+  const descriptionUpdate = (e: React.ChangeEvent<HTMLInputElement>) => {
+    clearTimeout(timer);
+    const newDescription = e.target.value;
+    setDescription(newDescription);
+
+    timer = setTimeout(async () => {
+      try {
+        await memoApi.update(memoId!, { description: newDescription });
+      } catch (error) {
+        alert(error);
+      }
+    }, timeout);
+  };
+
+  const deleteMemo = async () => {
+    if (!window.confirm("このメモを完全に削除していいですか？")) return;
+    try {
+      const deleted = await memoApi.delete(memoId!);
+      if (deleted) navigate("/memo");
+    } catch (error) {
+      alert(error);
+    }
+  };
+
   return (
     <>
       <Box
@@ -62,7 +87,7 @@ const Memo = () => {
         <IconButton>
           <StarBorderOutlinedIcon />
         </IconButton>
-        <IconButton color="error">
+        <IconButton color="error" onClick={deleteMemo}>
           <DeleteOutlinedIcon />
         </IconButton>
       </Box>
@@ -80,6 +105,7 @@ const Memo = () => {
           }}
         />
         <TextField
+          onChange={descriptionUpdate}
           placeholder="ここに自由に入力してください。"
           value={description}
           variant="outlined"
