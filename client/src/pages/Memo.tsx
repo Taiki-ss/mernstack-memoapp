@@ -5,9 +5,15 @@ import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import memoApi from "../api/memoApi";
+import { useAppSelector } from "../redux/hooks";
+import { useDispatch } from "react-redux";
+import { setMemos } from "../redux/features/memoSlice";
 
 const Memo = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const memos = useAppSelector((state) => state.memo.value);
+
   const { memoId } = useParams();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -66,10 +72,19 @@ const Memo = () => {
   };
 
   const deleteMemo = async () => {
-    if (!window.confirm("このメモを完全に削除していいですか？")) return;
     try {
       const deleted = await memoApi.delete(memoId!);
-      if (deleted) navigate("/memo");
+      console.log(deleted);
+      const newMemos: { _id: string }[] = memos.filter(
+        (memo: { _id: string }) => memo._id !== memoId
+      );
+
+      if (newMemos.length === 0) {
+        navigate("/memo");
+      } else {
+        navigate(`/memo/${newMemos[0]._id}`);
+      }
+      dispatch(setMemos(newMemos));
     } catch (error) {
       alert(error);
     }

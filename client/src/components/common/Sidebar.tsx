@@ -48,6 +48,18 @@ const Sidebar = () => {
     setActiveIndex(activeIndex);
   }, [navigate]);
 
+  const createMemo = async () => {
+    try {
+      const res = await memoApi.create();
+      console.log(res);
+      if ("_id" in res) {
+        navigate(`/memo/${res._id}`);
+      }
+    } catch (error) {
+      alert(error);
+    }
+  };
+
   return (
     <Drawer
       container={window.document.body}
@@ -107,7 +119,7 @@ const Sidebar = () => {
             <Typography variant="body2" fontWeight="700">
               プライベート
             </Typography>
-            <IconButton>
+            <IconButton onClick={createMemo}>
               <AddBoxOutlinedIcon />
             </IconButton>
           </Box>
