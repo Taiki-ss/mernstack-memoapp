@@ -3,6 +3,7 @@ import axiosClient from "./axiosClient";
 type Memo = {
   title?: string;
   description?: string;
+  icon?: string;
 };
 
 const memoApi = {

@@ -1,5 +1,6 @@
 import { IconButton, TextField } from "@mui/material";
 import { Box } from "@mui/system";
+import EmojiPicker from "../components/common/EmojiPicker";
 import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import React, { useEffect, useState } from "react";
@@ -90,6 +91,21 @@ const Memo = () => {
     }
   };
 
+  const onIconChange = async (newIcon: string) => {
+    let temp: { icon: string; _id: string }[] = [...memos];
+    const index = temp.findIndex(
+      (memo: { _id: string }) => memo._id === memoId
+    );
+    temp[index] = { ...temp[index], icon: newIcon };
+    setIcon(newIcon);
+    dispatch(setMemos(temp));
+    try {
+      await memoApi.update(memoId!, { icon: newIcon });
+    } catch (error) {
+      alert(error);
+    }
+  };
+
   return (
     <>
       <Box
@@ -107,30 +123,33 @@ const Memo = () => {
         </IconButton>
       </Box>
       <Box sx={{ padding: "10px 50px" }}>
-        <TextField
-          onChange={titleUpdate}
-          placeholder="無題"
-          value={title}
-          variant="outlined"
-          fullWidth
-          sx={{
-            ".MuiOutlinedInput-input": { padding: 0 },
-            ".MuiOutlinedInput-notchedOutline": { border: "none" },
-            ".MuiOutlinedInput-root": { fontSize: "2rem", fontWeight: 700 },
-          }}
-        />
-        <TextField
-          onChange={descriptionUpdate}
-          placeholder="ここに自由に入力してください。"
-          value={description}
-          variant="outlined"
-          fullWidth
-          sx={{
-            ".MuiOutlinedInput-input": { padding: 0 },
-            ".MuiOutlinedInput-notchedOutline": { border: "none" },
-            ".MuiOutlinedInput-root": { fontSize: "1rem" },
-          }}
-        />
+        <Box>
+          <EmojiPicker icon={icon} onChange={onIconChange} />
+          <TextField
+            onChange={titleUpdate}
+            placeholder="無題"
+            value={title}
+            variant="outlined"
+            fullWidth
+            sx={{
+              ".MuiOutlinedInput-input": { padding: 0 },
+              ".MuiOutlinedInput-notchedOutline": { border: "none" },
+              ".MuiOutlinedInput-root": { fontSize: "2rem", fontWeight: 700 },
+            }}
+          />
+          <TextField
+            onChange={descriptionUpdate}
+            placeholder="ここに自由に入力してください。"
+            value={description}
+            variant="outlined"
+            fullWidth
+            sx={{
+              ".MuiOutlinedInput-input": { padding: 0 },
+              ".MuiOutlinedInput-notchedOutline": { border: "none" },
+              ".MuiOutlinedInput-root": { fontSize: "1rem" },
+            }}
+          />
+        </Box>
       </Box>
     </>
   );

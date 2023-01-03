@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emoji-mart/react": "^1.1.1",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@mui/icons-material": "^5.11.0",
@@ -12,6 +13,7 @@
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.5",
     "@testing-library/user-event": "^12.8.3",
+    "@types/emoji-mart": "^3.0.9",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.9",
     "@types/react": "^18.0.26",
