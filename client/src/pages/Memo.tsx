@@ -10,6 +10,14 @@ import { useAppSelector } from "../redux/hooks";
 import { useDispatch } from "react-redux";
 import { setMemos } from "../redux/features/memoSlice";
 
+type MemoType = {
+  _id?: string;
+  user?: string;
+  icon?: string;
+  title?: string;
+  description?: string;
+};
+
 const Memo = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -18,22 +26,17 @@ const Memo = () => {
   const { memoId } = useParams();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [favorit, setFavorit] = useState(false);
-  const [favoritPosition, setFavoritPosition] = useState(0);
   const [icon, setIcon] = useState("");
-  const [positon, setPositon] = useState(0);
 
   useEffect(() => {
     (async () => {
       try {
         if (memoId) {
-          const memo: any = await memoApi.getOne(memoId);
-          setTitle(memo.title);
-          setDescription(memo.description);
-          setFavorit(memo.favorit);
-          setFavoritPosition(memo.favoritPosition);
-          setIcon(memo.icon);
-          setPositon(memo.positon);
+          const memo = (await memoApi.getOne(memoId)) as MemoType;
+          setTitle(memo.title ? memo.title : "");
+          setDescription(memo.description ? memo.description : "");
+          setIcon(memo.icon ? memo.icon : "");
+          console.log(memo);
         }
       } catch (error) {
         alert(error);

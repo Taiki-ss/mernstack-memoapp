@@ -1,8 +1,7 @@
 // カスタム型を定義
 import React, { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
-import { Container, Box } from "@mui/material";
-import notionLogo from "../../assets/images/notion-logo.png";
+import { Box } from "@mui/material";
 import authUtils from "../../utils/authUtils";
 import Sidebar from "../common/Sidebar";
 import { useDispatch } from "react-redux";

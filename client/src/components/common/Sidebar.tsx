@@ -41,12 +41,13 @@ const Sidebar = () => {
     })();
   }, [dispatch, navigate]);
 
-  useEffect(() => {
+	useEffect(() => {
+	  if(!memoId) return
     const activeIndex = memos.findIndex(
       (e: { _id: string }) => e._id === memoId
     );
     setActiveIndex(activeIndex);
-  }, [navigate]);
+  }, [memoId,memos]);
 
   const createMemo = async () => {
     try {
