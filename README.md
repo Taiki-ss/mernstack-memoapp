@@ -1,2 +1,2 @@
-# notion-clone-app
-notion-clone-app
+# mernstack-memoapp
+mernstack-memoapp
